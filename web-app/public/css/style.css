@@ -42,20 +42,21 @@ header > h1 {
     border-radius:  20px;
     background: orangered;
     color: white;
-    font-size: 14px;
+    font-size: 28px;
     padding: 2px 10px;
     font-family: Asap, sans-serif;
+    position: relative;
 }
 
 #usr {
     position: absolute;
-    top: 30px;
-    left: -20px;
+    top: 25px;
+    left: -30px;
 }
 
 #ai {
     position: absolute;
-    top: 30px;
+    top: 25px;
     right: -20px;
 }
 
@@ -109,7 +110,7 @@ header > h1 {
     background: orangered;
 }
 
-.choice > img {
+.choice > input {
     height: 100px;
     width: 100px;
     filter: invert(100%)
