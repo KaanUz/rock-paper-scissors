@@ -3,22 +3,19 @@
     <head>
         <meta charset="utf-8">
         <title>Rock Paper Scissors</title>
-        <!-- <link rel="stylesheet" href="../css/style.css" type="text/css"> -->
+        <link rel="stylesheet" href="public/css/style.css" type="text/css">
     </head>
     <body>
-        <style>
-            <%- css.style %> 
-        </style>
         <header>
             <h1>Rock Paper Scissors</h1>
         </header>
         
         <div class="choices">
-            <div class="choice" id="ai_choice">
+            <div class="ai-choice" id="ai_choice">
                 <% if(res !== null){ %>
-                    <img src="images/rock.png" alt="">
+                    <img src="public/images/rock.png" alt="">
                 <% } else { %>
-                    <img src="images/rock.png" style="visibility: hidden;" alt="">
+                    <img src="public/images/rock.png" style="visibility: hidden;" alt="">
                 <% } %>    
             </div>
         </div>
@@ -32,25 +29,36 @@
         
 
         <div class="res">
+            <p>
             <% if(res !== null){ %>
-                <p><%= res %></p>
+                <%= res %>
             <% } else { %>
-                <p>Choose your weapon!</p>
+                Choose your weapon!
             <% } %>
+            </p>
         </div>
 
         <div class="choices">
-            <div class="choice" id="rock">
-                <img src="../images/rock.png" alt="">
-            </div>
-            <div class="choice" id="paper">
-                <img src="../images/paper.png" alt="">
-            </div>
-            <div class="choice" id="scissors">
-                <img src="../images/scissors.png" alt="">
-            </div>
+            <form action="/send" method="post">
+                <div class="choice" id="rock">
+                    <input type="image" src="public/images/rock.png" value="rock">
+                </div>
+                <div class="choice" id="paper">
+                    <input type="image" src="public/images/paper.png" value="paper">
+                </div>
+                <div class="choice" id="scissors">
+                    <input type="image" src="public/images/scissors.png" value="scissors">
+                </div>
+            </form>
         </div>
 
-        <script src="" charset="utf-8"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io('http://localhost');
+            socket.on('news', function (data) {
+                console.log(data);
+                socket.emit('my other event', { my: 'data' });
+            });
+        </script>
     </body>
 </html>
