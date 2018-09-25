@@ -1,19 +1,18 @@
-var app                 = require('http').createServer(handler);
-var io                  = require('socket.io')(app);
+var server              = require('http').createServer(handler);
+var io                  = require('socket.io').listen(server);
 var fs                  = require('fs');
 
-app.listen(9000);
+server.listen(9000);
 
 var QueryString         = require('querystring');
 var Util                = require('util');
 var ejs                 = require('ejs');
 
-var htmlContent = fs.readFileSync('rock-paper-scissors/web-app/public/views/index.ejs', 'utf8');
+var     body                = "<html><head><title>%s</title></head><body>%s %s</body></html>"
+var     htmlContent         = fs.readFileSync('rock-paper-scissors/web-app/public/views/index.html', 'utf8');
 
 var contentTypeHtml     = {"Content-Type": "text/html"};
 var homeLink            = "Go to <a href='/'>Home</a>";
-
-var app = Http.createServer();
 
 const serveCSS = function (request, response) {
     fs.readFile(__dirname + '/../public/css/style.css', function (err, data) {
@@ -48,8 +47,6 @@ function handler(request, response) {
                 serveCSS(request, response);
             else if (request.url.indexOf('.png') != -1)
                 serveImages(request, response, request.url);
-            else if
-                
             else
                 get404(request, response); 
             break;
@@ -141,9 +138,42 @@ function get405(request, response) {
     response.end();
 }
 
-io.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-      console.log(data);
+function getAiChoice() {
+    const choices = ['rock', 'paper', 'scissors'];
+    const randomNumber = Math.floor(Math.random() * 3);
+    return choices[randomNumber]
+}
+
+function game(usrChoice, aiChoice) {
+    var res;
+    if (usrChoice == aiChoice) {
+        res = `It's a tie!`;
+        res = null;
+    } else if ( usrChoice == "rock" && aiChoice == "scissors"   ||
+                usrChoice == "paper" && aiChoice == "rock"      ||
+                usrChoice == "scissors" && aiChoice == "paper"  ) {
+        res = `${usrChoice}  beats  ${aiChoice}. You Win!`;
+        res = true;
+    } else {
+        res = false;
+        res = `${aiChoice}  beats  ${usrChoice}. You Lost!`;
+    }
+    return res;
+}
+
+io.sockets.on('connection', function (socket) {
+    
+    socket.on('user choice', function (usrChoice) {
+        const aiChoice = getAiChoice()
+        const gameResult = game(usrChoice, aiChoice);
+
+        if (gameResult == null)
+            resultMsg = `It's a tie!`;
+        else if (gameResult)
+            resultMsg = `${usrChoice}  beats  ${aiChoice}. You Win!`;
+        else
+            resultMsg = `${aiChoice}  beats  ${usrChoice}. You Lost!`;
+        
+        socket.broadcast.emit('game result', usrChoice, gameResult, resultMsg)
     });
-  });
+});
