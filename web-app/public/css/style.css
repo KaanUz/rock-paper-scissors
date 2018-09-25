@@ -110,7 +110,7 @@ header > h1 {
     background: orangered;
 }
 
-.choice > input {
+.choice > img {
     height: 100px;
     width: 100px;
     filter: invert(100%)
