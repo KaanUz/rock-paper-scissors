@@ -116,17 +116,17 @@ header > h1 {
     filter: invert(100%)
 }
 
-.win {
+.green-glow {
     border: 4px solid green;
     box-shadow: 0 0 10px greenyellow
 }
 
-.loose {
+.red-glow {
     border: 4px solid darkred;
     box-shadow: 0 0 10px red;
 }
 
-.tie { 
+.gray-glow { 
     border: 4px solid darkslategray;
     box-shadow: 0 0 10px gray;
 
