@@ -147,33 +147,37 @@ function getAiChoice() {
 function game(usrChoice, aiChoice) {
     var res;
     if (usrChoice == aiChoice) {
-        res = `It's a tie!`;
         res = null;
     } else if ( usrChoice == "rock" && aiChoice == "scissors"   ||
                 usrChoice == "paper" && aiChoice == "rock"      ||
                 usrChoice == "scissors" && aiChoice == "paper"  ) {
-        res = `${usrChoice}  beats  ${aiChoice}. You Win!`;
         res = true;
     } else {
         res = false;
-        res = `${aiChoice}  beats  ${usrChoice}. You Lost!`;
     }
     return res;
 }
 
-io.sockets.on('connection', function (socket) {
-    
+io.on('connection', function (socket) {
+    console.log("Connnection established!", socket.id)
+
     socket.on('user choice', function (usrChoice) {
+
         const aiChoice = getAiChoice()
         const gameResult = game(usrChoice, aiChoice);
 
-        if (gameResult == null)
+        if (gameResult === null)
             resultMsg = `It's a tie!`;
         else if (gameResult)
             resultMsg = `${usrChoice}  beats  ${aiChoice}. You Win!`;
         else
             resultMsg = `${aiChoice}  beats  ${usrChoice}. You Lost!`;
         
-        socket.broadcast.emit('game result', usrChoice, gameResult, resultMsg)
+        socket.emit('game result', {
+            usrChoice: usrChoice,
+            aiChoice: aiChoice,
+            res: gameResult,
+            msg: resultMsg
+        });
     });
 });
