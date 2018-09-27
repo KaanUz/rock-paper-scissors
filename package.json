@@ -1,0 +1,14 @@
+{
+    "name": "rock-paper-scissors",
+    "version": "0.1.0",
+    "description": "A simple rock-paper-scissors app",
+    "main": "app.js",
+    "scripts": {
+        "start": "node app"
+    },
+    "author": "Kaan Uzmez",
+    "license": "ISC",
+    "dependencies": {
+        "socket.io": "^2.1.1"
+    }
+}
