@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Rock Paper Scissors</title>
+        <link rel="stylesheet" href="public/css/style.css" type="text/css">
+    </head>
+    <body>
+        <header>
+            <h1>Rock Paper Scissors</h1>
+        </header>
+        
+        <div class="choices">
+            <div class="ai-choice" id="ai_choice">
+                <img src="public/images/rock.png" style="visibility: hidden;" alt=""> 
+            </div>
+        </div>
+
+        
+        <div class="score-board">
+            <div id="usr" class="badge">You</div>
+            <div id="ai" class="badge">AI</div>
+            <span id="usr_score" > 0 </span> : <span id="ai_score" > 0 </span>
+        </div>
+        
+
+        <div id="message" class="res"></div>
+
+        <div class="choices">
+            <div id="rock" class="choice" value="rock">
+                <img type="image" src="public/images/rock.png">
+            </div>
+            <div id="paper" class="choice" value="paper">
+                <img type="image" src="public/images/paper.png">
+            </div>
+            <div id="scissors" class="choice" value="scissors">
+                <img type="image" src="public/images/scissors.png">
+            </div>
+        </div>
+
+        <script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="public/js/socket.js"></script>
+    </body>
+</html>
