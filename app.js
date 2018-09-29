@@ -32,3 +32,9 @@ io.on('connection', function (socket) {
         socket.emit('game result', game.exec(usrChoice));
     });
 });
+
+server.on( 'close', function() {
+    console.log('Server closing...') 
+});
+
+module.exports = server;
