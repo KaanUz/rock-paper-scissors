@@ -11,7 +11,7 @@
         </header>
         
         <div class="choices">
-            <div class="ai-choice" id="ai_choice">
+            <div class="ai-choice">
                 <img src="public/images/rock.png" style="visibility: hidden;" alt=""> 
             </div>
         </div>
@@ -24,7 +24,9 @@
         </div>
         
 
-        <div id="message" class="res"></div>
+        <div id="message" class="res">
+            <p></p>
+        </div>
 
         <div class="choices">
             <div id="rock" class="choice" value="rock">
@@ -38,7 +40,6 @@
             </div>
         </div>
 
-        <script src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script src="public/js/socket.js"></script>
     </body>
