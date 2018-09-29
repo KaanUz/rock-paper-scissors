@@ -26,6 +26,7 @@ server.listen(9000, function(){
 
 io.on('connection', function (socket) {
     console.log("Connnection established!", socket.id)
+    socket.emit('message', 'Choose your weapon!');
 
     socket.on('user choice', function (usrChoice) {
         socket.emit('game result', game.exec(usrChoice));

@@ -1,4 +1,4 @@
-var socket = io('http://localhost:9000');
+var client = io('http://localhost:9000');
 
 let usrScore        = 0;
 let aiScore         = 0;
@@ -11,21 +11,24 @@ var aiChoice_div            = document.getElementsByClassName("ai-choice")[0];
 var aiChoice_div_classList  = aiChoice_div.classList;
 var aiChoice_img            = aiChoice_div.getElementsByTagName("img")[0];
 
-socket.on('connect', function () {
+client.on('connect', function () {
     console.log('Socket Connection Established...')
-    res_p.innerHTML = "Choose your weapon!";
+});
+
+client.on('message',function(msg){ 
+    res_p.innerHTML = msg;
 });
 
 for (let j = 0; j < choices.length; j++) {
     let choice = choices[j];
     choice.addEventListener('click', function() {
-        socket.emit('user choice', 
+        client.emit('user choice', 
             choice.getAttribute('value')
         );
     });
 }
 
-socket.on('game result', function(data) {
+client.on('game result', function(data) {
     var usrChoice_div_classList = document.getElementById(data.usrChoice).classList;
 
     res_p.innerHTML = data.msg;
